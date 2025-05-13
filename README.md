@@ -32,7 +32,7 @@ projet_churn_telco/
 - **Encodage** :
 - Encodage des variables catégorielles (OneHot et booléens)
 - Feature engineering : création de nouvelles variables (`AvgChargesPerMonth`, `HasMultipleServices`, `IsAlone`)
-- Sélection des 10 variables les plus importantes (via RandomForest)
+- Sélection des 10 variables les plus importantes (via xgboost)
 - **Création d’un environnement de travail modulaire** avec :
   - `requirements.txt`
   - `README.md` documenté
