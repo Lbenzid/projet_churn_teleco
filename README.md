@@ -7,23 +7,25 @@ Ce projet a pour objectif d'analyser et de prédire le désabonnement des client
 ##  Structure du projet
 projet_churn_telco/
 ├── data/                # Données brutes ou nettoyées (ex : WA_Fn-UseC_-Telco-Customer-Churn.csv)
-├── models/              # (À venir) Sauvegarde des modèles entraînés
+├── models/              # Modèle de régression logistique + scaler sauvegardés
 ├── notebooks/           # Contient le script EDA et preprocessing (au format .ipynb pour initialisation rapide)
-├── src/                 # (À venir) Fonctions réutilisables ou modules Python
+├── src/                 # Script de prédiction automatique `predict.py`
 ├── requirements.txt     # Librairies Python nécessaires
 └── README.md            # Documentation du projet
 
 
 ## Objectifs
 
-- Identifier les variables influentes sur le churn client à partir des données disponibles.
-- Réaliser une analyse exploratoire (EDA) approfondie.
-- Préparer les données pour une future modélisation (encodage, traitement des valeurs manquantes, etc.).
-- Mettre en place un pipeline reproductible via des scripts dans un environnement structuré.
-- Construire et comparer plusieurs modèles de classification
-- Sélectionner les variables les plus pertinentes pour affiner les performances(via xgboost)
+- Réaliser une analyse exploratoire approfondie pour identifier les variables influentes sur le churn client.
+- Préparer les données pour la modélisation (nettoyage, encodage, gestion des valeurs manquantes, etc.).
+- Structurer et automatiser l’ensemble du processus dans un pipeline reproductible (scripts, arborescence, versionning).
+- Tester plusieurs modèles de classification (Logistic Regression, Random Forest, XGBoost)
+- Affiner les performances en sélectionnant les variables les plus pertinentes (via XGBoost).
+- Exporter le meilleur modèle pour le déploiement sur de nouvelles données clients..
 
-## Étapes réalisées
+---
+
+# Étapes réalisées
 
 - **Chargement et nettoyage des données**
 - **Analyse exploratoire (EDA)** :
@@ -39,7 +41,7 @@ projet_churn_telco/
   - Arborescence propre pour évoluer vers la modélisation
 
 
-## 📊 Modèles Entraînés
+## Modèles Entraînés
 
 ### Régression Logistique (toutes variables)
 | Classe | Precision | Recall | F1-Score |
@@ -70,7 +72,7 @@ projet_churn_telco/
 
 ## Sélection des variables
 
-Nous avons retenu les **10 variables les plus importantes** selon le modèle Random Forest :
+Nous avons retenu les **10 variables les plus importantes** selon le modèle Xgboost :
 - InternetService_Fiber optic
 - Contract_Two year
 - InternetService_No
@@ -106,6 +108,18 @@ Nous avons retenu les **10 variables les plus importantes** selon le modèle Ran
 | 1 | 0.57 | 0.51 | 0.54 |
 | **Accuracy** | **0.77** |
 
+**Modèle retenu : Régression Logistique** pour son compromis entre performance et interprétabilité.
+
+* Entraînement et export (`logistic_model.pkl`, `standard_scaler.pkl`)
+
+### Prédiction automatique
+
+
+python src/predict.py
+
+Il génère le fichier `outputs/predictions.csv` contenant les colonnes d'origine + `Churn_Prediction` (0 ou 1).
+
+---
 
 ## Conclusion
 
@@ -119,10 +133,13 @@ Nous avons retenu les **10 variables les plus importantes** selon le modèle Ran
 Voir le fichier `requirements.txt`.
 
 
-## Prochaines étapes
-
-- Export des modèles et automatisation du pipeline
 
 ## 💡 Auteur
 
 Projet réalisé par **Lilia Benzid** – Data Scientist junior, passionnée par la data et l’IA appliquée.
+# Telco Churn Prediction 🚀
+
+Prédiction de la résiliation des abonnements clients dans le secteur des télécommunications.
+
+
+Merci pour votre lecture ! N'hésitez pas à me laisser un feedback 😊
